@@ -13,9 +13,11 @@ import { PasswordForm, PasswordSubmitParams } from './forms/password-form'
 import { Providers } from './forms/providers'
 import { AuthFormSuccess } from './success'
 
-export const LoginView: React.FC<AuthViewOptions & AuthFormOptions> = (
-  props
-) => {
+interface AuthFormViewProps extends AuthViewOptions, AuthFormOptions, AuthProps {
+  renderSuccess?: (data: any) => React.ReactElement;
+}
+
+export const LoginView: React.FC<AuthFormViewProps> = (props) => {
   if (props.type === 'password') {
     return <PasswordView {...props} />
   }
@@ -23,9 +25,7 @@ export const LoginView: React.FC<AuthViewOptions & AuthFormOptions> = (
   return <MagicLinkView {...props} />
 }
 
-export const SignupView: React.FC<AuthViewOptions & AuthFormOptions> = (
-  props
-) => {
+export const SignupView: React.FC<AuthFormViewProps> = (props) => {
   return <LoginView action="signUp" {...props} />
 }
 
